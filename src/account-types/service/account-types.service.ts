@@ -1,26 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAccountTypeDto } from '.././dto/create-account-type.dto';
 import { UpdateAccountTypeDto } from '.././dto/update-account-type.dto';
+import { AccountTypeRepository } from '../repository/account-type.repository';
+import { AccountType } from '../interfaces/create-account-type.interface';
+import { PaginationQueryDto } from 'src/shared/common/dto/pagination-query';
 
 @Injectable()
 export class AccountTypesService {
-  create(createAccountTypeDto: CreateAccountTypeDto) {
-    return 'This action adds a new accountType';
+  constructor( private readonly accountTypeRepository: AccountTypeRepository){}
+
+  async create(createAccountTypeDto: CreateAccountTypeDto): Promise<AccountType> {
+  return await this.accountTypeRepository.create(createAccountTypeDto);
+    
   }
 
-  findAll() {
-    return `This action returns all accountTypes`;
+  async findAll(paginationQueryDto: PaginationQueryDto): Promise<AccountType[]> {
+    return await this.accountTypeRepository.findAll(paginationQueryDto);
+ 
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} accountType`;
+  async findOne(id: string):Promise<AccountType> {
+    const account =  await this.accountTypeRepository.findOne(id);
+        if(!account) throw new NotFoundException(`Account Type ${id} not found`);
+        return account;
   }
 
-  update(id: number, updateAccountTypeDto: UpdateAccountTypeDto) {
-    return `This action updates a #${id} accountType`;
+ async update(id: string, updateAccountTypeDto: UpdateAccountTypeDto): Promise<AccountType> {
+        //await this.findName(updateAccountTypeDto.name);
+        const account = await this.accountTypeRepository.update(id, updateAccountTypeDto);
+        if(!account) throw new NotFoundException(`Account Type ${id} not found`);
+        return account;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} accountType`;
-  }
+  async delete( id: string): Promise<AccountType> {
+    const account = await this.accountTypeRepository.delete(id);
+    if(!account) throw new NotFoundException(`Account Type ${id} not found`);
+    return account;
+ }
+ 
+ //Private Methods
+
+ async findName(name: string): Promise<AccountType>{
+    const account = this.accountTypeRepository.findAccountTypeName(name);
+    if (account) throw new NotFoundException(`The account type ${name} already exists`);
+    return account;
+ }
 }
