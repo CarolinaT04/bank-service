@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AccountTypesService } from '../service/account-types.service';
 import { CreateAccountTypeDto } from '../dto/create-account-type.dto';
 import { UpdateAccountTypeDto } from '../dto/update-account-type.dto';
+import { PaginationQueryDto } from 'src/shared/common/dto/pagination-query';
 
 @Controller()
 export class AccountTypesController {
@@ -14,12 +15,12 @@ export class AccountTypesController {
   }
 
   @MessagePattern('findAllAccountTypes')
-  findAll() {
-    return this.accountTypesService.findAll();
+  findAll(paginationQueryDto: PaginationQueryDto) {
+    return this.accountTypesService.findAll(paginationQueryDto);
   }
 
   @MessagePattern('findOneAccountType')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.accountTypesService.findOne(id);
   }
 
@@ -29,7 +30,7 @@ export class AccountTypesController {
   }
 
   @MessagePattern('removeAccountType')
-  remove(@Payload() id: number) {
-    return this.accountTypesService.remove(id);
+  remove(@Payload() id: string) {
+    return this.accountTypesService.delete(id);
   }
 }

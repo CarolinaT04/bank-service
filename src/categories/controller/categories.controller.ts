@@ -14,12 +14,12 @@ export class CategoriesController {
   }
 
   @MessagePattern('findAllCategories')
-  findAll() {
-    return this.categoriesService.findAll();
+  findAll(paginationQueryDto) {
+    return this.categoriesService.findAll(paginationQueryDto);
   }
 
   @MessagePattern('findOneCategory')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.categoriesService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class CategoriesController {
   }
 
   @MessagePattern('removeCategory')
-  remove(@Payload() id: number) {
-    return this.categoriesService.remove(id);
+  remove(@Payload() id: string) {
+    return this.categoriesService.delete(id);
   }
 }

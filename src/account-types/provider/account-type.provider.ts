@@ -3,8 +3,6 @@ import { connection, Connection } from "mongoose";
 import { accountTypeSchema } from "../entities/account-type.entity";
 
 
-
-
 export const accountTypeProvider = [
     {
         provide: ACCOUNT_TYPE_MODEL,

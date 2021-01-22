@@ -3,9 +3,6 @@ import { connection, Connection } from "mongoose";
 import { serviceSchema } from "../entities/service.entity";
 
 
-
-
-
 export const serviceProvider = [
     {
         provide: SERVICE_MODEL,

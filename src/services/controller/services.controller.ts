@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ServicesService } from '../service/services.service';
 import { CreateServiceDto } from '../dto/create-service.dto';
 import { UpdateServiceDto } from '../dto/update-service.dto';
+import { PaginationQueryDto } from 'src/shared/common/dto/pagination-query';
 
 @Controller()
 export class ServicesController {
@@ -14,12 +15,12 @@ export class ServicesController {
   }
 
   @MessagePattern('findAllServices')
-  findAll() {
-    return this.servicesService.findAll();
+  findAll(paginationQueryDto:PaginationQueryDto) {
+    return this.servicesService.findAll(paginationQueryDto);
   }
 
   @MessagePattern('findOneService')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.servicesService.findOne(id);
   }
 
@@ -29,7 +30,7 @@ export class ServicesController {
   }
 
   @MessagePattern('removeService')
-  remove(@Payload() id: number) {
-    return this.servicesService.remove(id);
+  remove(@Payload() id: string) {
+    return this.servicesService.delete(id);
   }
 }

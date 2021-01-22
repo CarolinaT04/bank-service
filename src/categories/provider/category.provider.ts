@@ -2,10 +2,6 @@ import { CATEGORY_MODEL, DATABASE_CONNECTION } from "src/shared/constants/consta
 import { connection, Connection } from "mongoose";
 import { categorySchema } from "../entities/category.entity";
 
-
-
-
-
 export const categoryProvider = [
     {
         provide: CATEGORY_MODEL,
