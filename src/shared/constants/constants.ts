@@ -12,7 +12,7 @@ export const CATEGORY_MODEL: string = 'Category';
 
 export const SERVICE_MODEL: string = 'Service';
 
-export const ACCOUNT_TYPE_MODEL: string = 'Account_Type';
+export const ACCOUNT_TYPE_MODEL: string = 'AccountType';
 
 export const CLIENT_MODEL: string = 'Client';
 

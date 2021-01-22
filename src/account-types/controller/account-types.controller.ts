@@ -1,8 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { AccountTypesService } from './account-types.service';
-import { CreateAccountTypeDto } from './dto/create-account-type.dto';
-import { UpdateAccountTypeDto } from './dto/update-account-type.dto';
+import { AccountTypesService } from '../service/account-types.service';
+import { CreateAccountTypeDto } from '../dto/create-account-type.dto';
+import { UpdateAccountTypeDto } from '../dto/update-account-type.dto';
 
 @Controller()
 export class AccountTypesController {
